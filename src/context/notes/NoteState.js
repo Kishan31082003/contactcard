@@ -4,8 +4,14 @@ import NoteContext from './NoteContext';
 const NoteState = (props) => { 
     const host = "http://localhost:5000";
     const notesInitial =[ ]
+    const usersInitial =[ ]
+    const teamsInitial =[ ]
+    const allteamsInitial = [ ]
     
     const [notes, setNotes] = useState(notesInitial);
+    const [users, setUsers] = useState(usersInitial);
+    const [teams, setTeams] = useState(teamsInitial); //ye post k liye
+    const [allteams, setAllTeams] = useState(allteamsInitial); //ye get k liye
     //Add notes
     const addNotes = async (Name, Email, Mobile, Address) => {
         
@@ -79,9 +85,87 @@ const NoteState = (props) => {
         setNotes(json);
     }
 
+
+    // admin fetchall
+    const fetchAllNotes = async() => { 
+        
+        const response = await fetch(`${host}/api/admin/allnotes`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem('token')
+            },
+            body: JSON.stringify(),
+        });
+
+        const json=await response.json();
+        console.log(json);
+        
+        setNotes(json);
+    }
+
+
+    // totalusers fetching 
+    const allusers = async() => { 
+        
+        const response = await fetch(`${host}/api/allusers/allusers`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem('token')
+            },
+            body: JSON.stringify(),
+        });
+
+        const json=await response.json();
+        console.log(json);
+        
+        setUsers(json);
+    }
+
+
+    //adding a user from all users to my team ;
+    const addToTeam = async(name, email,role) => { 
+        const response = await fetch(`${host}/api/team/myteam`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem('token')
+            },
+            body: JSON.stringify({name, email,role}),
+        });
+
+        const json=await response.json();
+        console.log(json);
+        
+        setTeams(json);
+    }
+
+    //fetching all teams
+    const getAllTeams = async() => { 
+        
+        const response = await fetch(`${host}/api/team/showteam`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem('token')
+            },
+            body: JSON.stringify(),
+        });
+
+        const json=await response.json();
+        console.log(json);
+        
+        setAllTeams(json);
+    }
+
+
+
+
+
    
     return (
-        <NoteContext.Provider value={{ notes, addNotes, deleteNote, editNote, fetchNotes }}>
+        <NoteContext.Provider value={{ notes,addNotes, deleteNote, editNote, fetchNotes, fetchAllNotes, users, allusers,addToTeam, teams, setTeams, allteams, getAllTeams, allteamsInitial }}>
             {props.children}
         </NoteContext.Provider>
     )
