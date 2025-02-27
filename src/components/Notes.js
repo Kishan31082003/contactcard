@@ -19,7 +19,7 @@ export const Notes = () => {
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", width: "100%", textAlign: "center" }}>
                 {notes.length === 0 && 'No notes to display. Please Add Some Notes ! '}
             {notes.map((note) => {
-                return <Noteitem key={note._id} note={note} />
+                return <Noteitem key={note._id} note={note} />   //Noteitem naam ka card bnao tum , jitni entries aaye unte k liye
                        
             })}
             

@@ -69,9 +69,9 @@ router.post('/login', [
         return res.status(400).json({ success: success, errors: errors.array() });
     }
 
-    const { email, password } = req.body;
+    const { email, password } = req.body;  //ye wala password aaya h frontend se
     try {
-        let user =await User.findOne({ email });
+        let user =await User.findOne({ email });   //ye wala user aaya h mondodb se jiske paas khudke sare detials honge including passwords
         if (!user) {
             return res.status(400).json({ success: success, error: "Please try to login with correct credentials" });
         }

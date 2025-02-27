@@ -6,16 +6,20 @@ const NotesSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref:'user'
     },
-    title: {
+    Name: {
         type: String,
         required: true
     },
-    description: {
+    Email: {
         type: String,
         required: true,
         
     },
-    tag: {
+    Mobile: {
+        type: String,
+        default: "General"
+    },
+    Address: {
         type: String,
         default: "General"
     },

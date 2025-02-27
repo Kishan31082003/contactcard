@@ -19,7 +19,8 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/" element={<Home />}></Route>   {/* home is contacts on nav bar */}
+           
             <Route path="/about" element={<About />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signuppage />}></Route>

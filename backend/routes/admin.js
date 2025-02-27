@@ -30,17 +30,8 @@ router.post('/addnote', fetchuser, async (req, res) => {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        
-        //received in backend finally from frontend->
-        // notestate(apna thunderclient)->
-        // routes(notes.js)(iske beecche me ->
-        // middleware(fetchuser== req me user dalke bheja tha i.e. req.user))
-        // (wahi to khul rha h jo apna backend hai) routes(notes.js)->
-        //isme humne destructure krke le liya
-        const { Name, Email, Mobile, Address } = req.body;  
-
-
-        const note = new Notes({    //ye notes ka obj note h, notes asli me database h
+        const { Name, Email, Mobile, Address } = req.body;
+        const note = new Notes({
             Name, Email, Mobile, Address, user: req.user.id
         })
         const savednote = await note.save();
@@ -68,7 +59,7 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
     
         let note = await Notes.findById(req.params.id);
         if (!note) { return res.status(404).send("Not Found"); }
-        if (note.user.toString() !== req.user.id) { return res.status(401).send("Not Allowed"); }  //mogodb wala userid != req wala id
+        if (note.user.toString() !== req.user.id) { return res.status(401).send("Not Allowed"); }
     
         note = await Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true });
         res.send({ note });

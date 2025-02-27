@@ -7,23 +7,23 @@ const NoteState = (props) => {
     
     const [notes, setNotes] = useState(notesInitial);
     //Add notes
-    const addNotes = async (title,description,tag) => {
+    const addNotes = async (Name, Email, Mobile, Address) => {
         
-        const note = await fetch(`${host}/api/notes/addnote`, {
+        const note = await fetch(`${host}/api/notes/addnote`, {   //ye wahi note h, jo notes db ka obj ne return kiya h apne ko
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "auth-token": localStorage.getItem('token')
             },
-            body: JSON.stringify({title, description, tag}),
+            body: JSON.stringify({Name, Email, Mobile, Address}),
         });
-       
+        
         setNotes(notes.concat(note));
      }
 
     //edit
-    const editNote = async (id, title, description, tag) => {
-        
+    const editNote = async (id, Name, Email, Mobile, Address) => {
+        console.log(id);
         //Backend Api call
         const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
             method: "PUT",
@@ -31,15 +31,16 @@ const NoteState = (props) => {
                 "Content-Type": "application/json",
                 "auth-token":localStorage.getItem('token')
             },
-            body: JSON.stringify({ title, description, tag }), 
+            body: JSON.stringify({Name, Email, Mobile, Address }), 
         });
         
         const newnotes=JSON.parse(JSON.stringify(notes))
         for (let i = 0; i < newnotes.length; i++) { 
             if (newnotes[i]._id === id) { 
-                newnotes[i].title = title;
-                newnotes[i].description = description;
-                newnotes[i].tag = tag;
+                newnotes[i].Name = Name;
+                newnotes[i].Email = Email;
+                newnotes[i].Mobile = Mobile;
+                newnotes[i].Address = Address;
                 break;
             }
         }
@@ -73,6 +74,7 @@ const NoteState = (props) => {
             body: JSON.stringify(),
         });
         const json=await response.json();
+        console.log(json);
         
         setNotes(json);
     }

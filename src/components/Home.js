@@ -6,7 +6,7 @@ export const Home = () => {
     return (
         <div>
             <header style={{paddingTop:"4rem"}}>
-                <h1>Add Your Notes are here </h1>
+                <h2>YOUR CONTACT CARDS</h2>
                     <AddNote/>
                     <Notes />
             </header>

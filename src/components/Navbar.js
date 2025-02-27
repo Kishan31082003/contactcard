@@ -10,13 +10,15 @@ export const Navbar = () => {
     const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('token');
+        
         navigate('/login');
+        alert("YOU ARE NOW LOGGED OUT OF THE SYSTEM SUCCESSFULLY!");
     }
     return (
         <div className='navbar'>
-            <div className='logo'>iNoteBook</div>
+            <div className='logo'>E-callbooks</div>
             <div className='links'>
-                <Link className={`link ${location.pathname==='/'? "active": ""}`}   to='/'>Home</Link>
+                <Link className={`link ${location.pathname==='/'? "active": ""}`}   to='/'>Contacts</Link>
                 <Link className={`link ${location.pathname==='/about'?  "active": ""}`}  to='/about'>About</Link>
             </div>
             <div>
