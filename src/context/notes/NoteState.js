@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import NoteContext from './NoteContext';
+import { ToastContainer, toast } from 'react-toastify';
 
 const NoteState = (props) => { 
     const host = "http://localhost:5000";
@@ -24,8 +25,9 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({Name, Email, Mobile, Address}),
         });
-        
+        if(note.status=='success')
         setNotes(notes.concat(note));
+        toast.success("A New Contact Added");
      }
 
     //edit
@@ -52,6 +54,7 @@ const NoteState = (props) => {
             }
         }
         setNotes(newnotes)
+        toast.success("Updated Contact Successfully")
         const json = await response.json();
     }
 
@@ -68,6 +71,7 @@ const NoteState = (props) => {
         
         const newNotes = notes.filter((note) => {return note._id !== id });
         setNotes(newNotes);
+        toast.success("Deleted Contact Successfully")
     }
     //Fetch All Notes
     const fetchNotes = async() => { 
@@ -126,14 +130,14 @@ const NoteState = (props) => {
 
 
     //adding a user from all users to my team ;
-    const addToTeam = async(name, email,role) => { 
+    const addToTeam = async(id,name, email,role) => { 
         const response = await fetch(`${host}/api/team/myteam`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "auth-token": localStorage.getItem('token')
             },
-            body: JSON.stringify({name, email,role}),
+            body: JSON.stringify({id,name, email,role}),
         });
 
         const json=await response.json();

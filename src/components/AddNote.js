@@ -1,5 +1,8 @@
 import react, { useState, useContext } from 'react';
 import "./AddNote.css";
+import { ToastContainer, toast } from 'react-toastify';
+
+
 
 import NoteContext from "../context/notes/NoteContext";
 export const AddNote = () => {

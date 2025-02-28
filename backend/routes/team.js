@@ -21,11 +21,11 @@ router.post('/myteam', fetchuser, async (req, res) => {
         // (wahi to khul rha h jo apna backend hai) routes(notes.js)->
         //isme humne destructure krke le liya
         console.log(req.body);
-        const { name, email, role } = req.body;  
+        const { id,name, email, role } = req.body;  
 
 
         const team = new Myteam({    //ye notes ka obj note h, notes asli me database h
-            name, email, role, Date, user: req.user.id
+            user: id, name, email, role, Date
         })
         const savedteam = await team.save();
        

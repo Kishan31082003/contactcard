@@ -4,14 +4,27 @@ const fetchuser = require('../middleware/fetchuser');
 const isadmin = require('../middleware/isadmin');   
 const { body, validationResult } = require('express-validator');
 const Notes = require('../models/Notes');
+const Myteam = require('../models/Myteam');
 //Route 1 :Get all the notes using: GET "/api/admin/allnotes". Login required
 router.get('/allnotes', fetchuser,isadmin, async (req, res) => {
     console.log("in back allnotes");
 
     try {
-        const notes = await Notes.find({});
+        const team = await Myteam.find({});  // Get all team members
+        const notes = await Notes.find({});  // Get all notes
 
-        res.json(notes)
+        const result = [];
+
+        // Iterate through each team member and filter corresponding notes
+        for (const obj of team) {
+            const userId = obj.user.toString();  
+            console.log(userId);
+            const userNotes = notes.filter(note => note.user.toString() === userId);  // Compare user ids
+            // Add the found notes to the result
+            result.push(...userNotes);  // Spread operator to add all the notes in the result array
+        }
+        console.log(result);
+        res.json(result);
     }
     catch (error) {
         console.log(error.message);
