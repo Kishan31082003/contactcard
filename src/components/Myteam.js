@@ -17,7 +17,7 @@ const Myteam = () => {
 
     return (
         <div className="container">
-            <h2 className="my-3">YOUR TEAM USERS</h2>
+            {/* <h3 className="my-3">TEAM MEMBERS</h3> */}
             <table className="table table-striped">
                 <thead>
                     <tr>
