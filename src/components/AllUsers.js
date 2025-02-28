@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import NoteContext from "../context/notes/NoteContext";
 import { FaUserPlus } from 'react-icons/fa';
 import './AllUsers.css';
+import { toast } from 'react-toastify';
 
 const AllUsers = () => {
     const { users, allusers, addToTeam } = useContext(NoteContext);
@@ -13,6 +14,8 @@ const AllUsers = () => {
 
     const handleAddUserToTeam = (name,email,role) => {
         addToTeam(name,email,role);
+        if(localStorage.getItem("role")==='admin') toast.success(`${name} Joined the Team`);
+        else toast.error("you are not an admin");
     };
 
     return (

@@ -14,6 +14,9 @@ import NoteState from "./context/notes/NoteState";
 import { Admin } from "./components/admin";
 import AllUsers from "./components/AllUsers";
 import Myteam from "./components/Myteam";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';//toast ka css
+
 
 
 function App() {
@@ -21,6 +24,7 @@ function App() {
     <>
       <NoteState>
         <Router>
+          <ToastContainer />
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />}></Route>   {/* home is contacts on nav bar */}

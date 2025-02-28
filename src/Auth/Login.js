@@ -1,5 +1,6 @@
 import react, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 import './Login.css';
 const Login = () => {
     const [user, Setuser] = useState({ email: "dd4321@gmail.com", password: "dd4321" });
@@ -19,11 +20,13 @@ const Login = () => {
             //Save And Redirect To Home
             localStorage.setItem("token", json.token)
             localStorage.setItem("role", json.role)
+            toast.success("LOGGED IN SUCCESSFULLY!")
             navigate('/');
         } else {
-            if (json.error) alert(json.error);
+            if (json.error) toast.error("PLease try again !");
             else {
-                alert("Some error occurred .PLease try again !");
+                //alert("Some error occurred .PLease try again !");
+                toast.error("Some error occurred .PLease try again !")
             }
         }
     }
