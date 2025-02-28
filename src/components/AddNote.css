@@ -52,14 +52,14 @@
     padding: 0.3rem 0;
     width: 30%;
     border-radius: 20px;
-    background-color: rgb(20, 107, 247);
+    background-color: rgb(4 128 111);;
     color: white;
     border: none;
     outline: none;
     cursor: pointer;
 }
 .form_container button:hover{
-    background-color: rgb(20, 107, 247,0.8);
+    background-color: rgb(1 46 40);
 }
 @media (min-width: 992px) {
     .row{

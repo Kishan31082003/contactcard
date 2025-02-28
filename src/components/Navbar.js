@@ -18,6 +18,9 @@ export const Navbar = () => {
         <div className='navbar'>
             <div className='logo'>E-callbooks</div>
             <div className='links'>
+                <Link className={`link ${location.pathname==='/myteam'? "active": ""}`}   to={localStorage.getItem('token') ? '/myteam' : "/login"}>My Team</Link>
+                <Link className={`link ${location.pathname==='/allusers'? "active": ""}`}   to={localStorage.getItem('token') ? '/allusers' : "/login"}>All users</Link>
+                {localStorage.getItem('role')==='admin' && <Link className={`link ${location.pathname==='/admin'? "active": ""}`}   to='/admin'>Admin mode</Link>}
                 <Link className={`link ${location.pathname==='/'? "active": ""}`}   to='/'>Contacts</Link>
                 <Link className={`link ${location.pathname==='/about'?  "active": ""}`}  to='/about'>About</Link>
             </div>

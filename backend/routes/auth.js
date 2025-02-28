@@ -35,19 +35,22 @@ router.post('/createUser', [
             name: req.body.name,
             email: req.body.email,
             password: secPass,
+            role: "user"
 
         });
 
         //Creating a token for authentication
         const data = {
             user: {
-                id: user.id
+                id: user.id,
+                role: user.role
+
             }
         }
        
         const authtoken = jwt.sign(data, JWT_SECRET);
         success = true;
-        res.send({ success: success, token: authtoken});
+        res.send({ success: success, token: authtoken, role: user.role});
     }
     catch (error) {
         console.log(error.message);
@@ -81,12 +84,14 @@ router.post('/login', [
         }
         const data = {
             user: {
-                id:user.id
+                id:user.id,
+                role: user.role
             }
         }
         const authtoken = jwt.sign(data, JWT_SECRET);
         success = true;
-        res.send({ success: success , token:authtoken });
+        res.send({ success: success , token:authtoken, role:user.role});
+
     }
     catch (error) { 
         console.log(error.message);
