@@ -12,9 +12,12 @@ const AllUsers = () => {
         allusers();
     }, []);
 
-    const handleAddUserToTeam = (name,email,role) => {
-        addToTeam(name,email,role);
-        if(localStorage.getItem("role")==='admin') toast.success(`${name} Joined the Team`);
+    const handleAddUserToTeam = (id,name,email,role) => {
+        console.log(localStorage.getItem("role"));
+        if(localStorage.getItem("role")==='admin'){
+            addToTeam(id,name,email,role);
+            toast.success(`${name} Joined the Team`);
+        }
         else toast.error("you are not an admin");
     };
 
@@ -41,7 +44,7 @@ const AllUsers = () => {
                             <td>
                                 <button 
                                     className="btn btn-primary" 
-                                    onClick={() => handleAddUserToTeam(user.name,user.email,user.role)}
+                                    onClick={() => handleAddUserToTeam(user._id,user.name,user.email,user.role)}
                                     title="Add to team"
                                 >
                                     <FaUserPlus size={20} />

@@ -1,6 +1,8 @@
 import { useState, useContext } from 'react';
 import "./Noteitem.css";
 import NoteContext from "../context/notes/NoteContext";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export const Noteitem = ({ note }) => {
     const context = useContext(NoteContext);
@@ -28,6 +30,7 @@ export const Noteitem = ({ note }) => {
         console.log("Editing a note");
         console.log(newnote);
         editNote(newnote.id, newnote.Name, newnote.Email, newnote.Mobile, newnote.Address);
+        
         popupremove();
     };
 

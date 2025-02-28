@@ -13,7 +13,7 @@ export const Navbar = () => {
     const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('token');
-        
+        localStorage.removeItem('role');
         navigate('/login');
         //alert("LOGGED OUT SUCCESSFULLY!");
         toast.success("LOGGED OUT SUCCESSFULLY!")

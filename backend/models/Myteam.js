@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const TeammateSchema = new Schema({
+    user:{
+        type: mongoose.Types.ObjectId,
+        ref:'user'
+    },
     name: {
         type: String,
         required: true
