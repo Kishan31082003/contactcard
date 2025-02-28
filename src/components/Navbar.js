@@ -2,6 +2,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import { ToastContainer, toast } from 'react-toastify';
+
+
 
 
 
@@ -12,7 +15,8 @@ export const Navbar = () => {
         localStorage.removeItem('token');
         
         navigate('/login');
-        alert("YOU ARE NOW LOGGED OUT OF THE SYSTEM SUCCESSFULLY!");
+        //alert("LOGGED OUT SUCCESSFULLY!");
+        toast.success("LOGGED OUT SUCCESSFULLY!")
     }
     return (
         <div className='navbar'>

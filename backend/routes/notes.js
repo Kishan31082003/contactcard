@@ -68,10 +68,13 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
     
         let note = await Notes.findById(req.params.id);
         if (!note) { return res.status(404).send("Not Found"); }
-        if (note.user.toString() !== req.user.id) { return res.status(401).send("Not Allowed"); }  //mogodb wala userid != req wala id
+        if (note.user.toString() === req.user.id || req.user.role === "admin") { 
+            
+            note = await Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true });
+            res.send({ note });
+        }  //mogodb wala userid != req wala id
     
-        note = await Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true });
-        res.send({ note });
+        else return res.status(401).send("Not Allowed"); 
     } catch (error) {
         console.log(error.message);
         return res.status(500).send("Internal Server Error");
@@ -87,10 +90,12 @@ router.delete('/delete/:id', fetchuser, async (req, res) => {
         if (!note) { return res.status(404).send("Not Found"); }
 
         //checking for user is owner
-        if (note.user.toString() !== req.user.id) { return res.status(401).send("Not Allowed"); }
+        if (note.user.toString() === req.user.id || req.user.role === "admin") { 
+            note = await Notes.findByIdAndDelete(req.params.id);
+            res.send({ "Success": "Notes Deleted Successfuly", note: note });
+        }
 
-        note = await Notes.findByIdAndDelete(req.params.id);
-        res.send({ "Success": "Notes Deleted Successfuly", note: note });
+        else return res.status(401).send("Not Allowed");
     } catch (error) {
         console.log(error.message);
         return res.status(500).send("Internal Server Error");
