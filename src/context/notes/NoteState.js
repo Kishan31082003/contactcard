@@ -12,6 +12,7 @@ const NoteState = (props) => {
     const [users, setUsers] = useState(usersInitial);
     const [teams, setTeams] = useState(teamsInitial); //ye post k liye
     const [allteams, setAllTeams] = useState(allteamsInitial); //ye get k liye
+    const [allgrpcontacts, setAllGrpContacts] = useState(allteamsInitial); //ye get k liye to get all cards of group members
     //Add notes
     const addNotes = async (Name, Email, Mobile, Address) => {
         
@@ -159,13 +160,29 @@ const NoteState = (props) => {
         setAllTeams(json);
     }
 
+    //feching all of card/notes of a given user with id
+    const addTheirContacts = async (id) => {
+        const response = await fetch(`${host}/api/notes/get/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem('token')
+            },
+        });
+        
+        
+        const newNotes = notes.filter((note) => {return note._id == id });
+        setNotes(newNotes);
+    }
+
+
 
 
 
 
    
     return (
-        <NoteContext.Provider value={{ notes,addNotes, deleteNote, editNote, fetchNotes, fetchAllNotes, users, allusers,addToTeam, teams, setTeams, allteams, getAllTeams, allteamsInitial }}>
+        <NoteContext.Provider value={{ notes,addNotes, deleteNote, editNote, fetchNotes, fetchAllNotes, users, allusers,addToTeam, teams, setTeams, allteams, getAllTeams, allteamsInitial, addTheirContacts, setAllGrpContacts }}>
             {props.children}
         </NoteContext.Provider>
     )

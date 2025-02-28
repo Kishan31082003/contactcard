@@ -11,9 +11,9 @@ const Myteam = () => {
         getAllTeams();
     }, []);
 
-    // const handleAddToMyTeam = (userId) => {
-    //     addToTeam(userId);
-    // };
+    const showTheirContacts = (userId) => {
+        //addTheirContacts(userId);
+    };
 
     return (
         <div className="container">
@@ -31,14 +31,14 @@ const Myteam = () => {
                 <tbody>
                     {allteams.map((user) => (
                         <tr key={user._id}>
-                            <td>{user.name}</td>
+                            <td onClick={() => showTheirContacts(user._id)}>{user.name}</td>
                             <td>{user.email}</td>
                             <td>{user.role}</td>
                             <td>{new Date(user.date).toLocaleString()}</td>
                             {/* <td>
                                 <button 
                                     className="btn btn-primary" 
-                                    onClick={() => handleAddToMyTeam(user._id)}
+                                    onClick={() => showTheirContacts(user._id)}
                                     title="Add to team"
                                 >
                                     <FaUserPlus size={20} />
